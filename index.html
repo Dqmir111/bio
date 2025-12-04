@@ -24,6 +24,7 @@
             align-items: center;
             justify-content: center;
             overflow-x: hidden;
+            position: relative; /* Добавлено для позиционирования снега */
         }
 
         /* Видео фон */
@@ -34,9 +35,9 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
-            z-index: -1;
-            opacity: 0.4; /* Прозрачность видео */
-            filter: brightness(0.5) blur(3px); /* Затемнение и легкое размытие */
+            z-index: -2; /* Изменено на -2, чтобы снег был над видео, но под контентом */
+            opacity: 0.4;
+            filter: brightness(0.5) blur(3px);
         }
 
         /* Основной контейнер */
@@ -46,6 +47,11 @@
             padding: 20px;
             text-align: center;
             z-index: 1;
+            /* Дополнительный стиль для "красоты": немного тени для контраста */
+            background-color: rgba(0, 0, 0, 0.2); 
+            border-radius: 20px;
+            padding-top: 40px;
+            padding-bottom: 40px;
         }
 
         /* Аватарка */
@@ -55,83 +61,115 @@
             border-radius: 50%;
             object-fit: cover;
             margin-bottom: 15px;
-            border: 2px solid rgba(255, 255, 255, 0.1);
+            border: 3px solid #00c6ff; /* Сделаем рамку красивее, добавим сияющий эффект */
+            box-shadow: 0 0 15px rgba(0, 198, 255, 0.7);
+            transition: transform 0.3s ease;
+        }
+        
+        .avatar:hover {
+            transform: scale(1.05);
         }
 
         /* Имя и описание */
         h1 {
-            font-size: 20px;
-            font-weight: 600;
+            font-size: 24px; /* Увеличим размер */
+            font-weight: 700;
             margin-bottom: 5px;
-            letter-spacing: 0.5px;
+            letter-spacing: 1px;
+            color: #fff;
+            text-shadow: 0 0 5px #00c6ff;
         }
 
         .bio {
-            font-size: 14px;
-            color: rgba(255, 255, 255, 0.6);
-            margin-bottom: 25px;
-            white-space: pre-line; /* Чтобы работали переносы строк */
+            font-size: 15px;
+            color: rgba(255, 255, 255, 0.8); /* Сделаем текст немного светлее */
+            margin-bottom: 30px; /* Увеличим отступ */
+            white-space: pre-line;
         }
 
         /* Список ссылок */
         .links {
             display: flex;
             flex-direction: column;
-            gap: 12px;
+            gap: 15px; /* Увеличим расстояние */
             width: 100%;
         }
 
         .link-item {
             display: flex;
             align-items: center;
-            justify-content: center; /* Центрируем текст */
+            justify-content: center;
             position: relative;
-            background: rgba(20, 20, 20, 0.8); /* Темный фон кнопок */
+            background: rgba(255, 255, 255, 0.1); /* Более светлый, но прозрачный фон */
             color: #fff;
             text-decoration: none;
-            padding: 16px;
-            border-radius: 12px;
-            font-size: 15px;
-            font-weight: 500;
-            transition: all 0.2s ease;
-            border: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 18px; /* Увеличим padding */
+            border-radius: 15px; /* Сделаем углы более скругленными */
+            font-size: 16px;
+            font-weight: 600;
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            border: 1px solid rgba(255, 255, 255, 0.1);
             backdrop-filter: blur(10px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3); /* Добавим тень */
         }
 
-        /* Иконка слева (абсолютное позиционирование чтобы текст был строго по центру) */
+        /* Иконка слева */
         .link-item i {
             position: absolute;
             left: 20px;
-            font-size: 18px;
+            font-size: 20px;
         }
 
         /* Ховер эффект */
         .link-item:hover {
-            background: rgba(255, 255, 255, 0.1);
-            transform: scale(1.01);
-            border-color: rgba(255, 255, 255, 0.2);
+            background: #00c6ff; /* Голубой цвет при наведении */
+            color: #000;
+            transform: translateY(-3px); /* Легкий подъем */
+            border-color: #00c6ff;
+            box-shadow: 0 10px 20px rgba(0, 198, 255, 0.4);
         }
 
         /* Футер */
         .footer {
-            margin-top: 40px;
-            font-size: 12px;
-            color: rgba(255, 255, 255, 0.3);
-            letter-spacing: 1px;
+            margin-top: 50px; /* Увеличим отступ */
+            font-size: 13px;
+            color: rgba(255, 255, 255, 0.5);
+            letter-spacing: 1.5px;
             text-transform: uppercase;
         }
 
         /* Анимация появления */
         .fade-in {
-            animation: fadeIn 0.8s ease-out forwards;
+            animation: fadeIn 1s ease-out forwards;
             opacity: 0;
-            transform: translateY(10px);
+            transform: translateY(20px);
         }
 
         @keyframes fadeIn {
             to {
                 opacity: 1;
                 transform: translateY(0);
+            }
+        }
+        
+        /* Стили для снегопада */
+        .snowflake {
+            position: absolute;
+            width: 5px;
+            height: 5px;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 50%;
+            z-index: 0; /* Над видео, но под контентом */
+            pointer-events: none; /* Чтобы не мешал кликам */
+            animation: fall linear infinite;
+        }
+
+        @keyframes fall {
+            0% {
+                transform: translateY(-10vh);
+            }
+            100% {
+                transform: translateY(100vh);
             }
         }
 
@@ -142,35 +180,37 @@
     <video autoplay muted loop playsinline id="bg-video">
         <source src="120fps.mp4" type="video/mp4">
     </video>
+    
+    <div id="snow-container"></div> 
 
     <div class="container fade-in">
         
-        <img src="avatar.jpg" alt="Avatar" class="avatar" onerror="this.src='https://github.com/Dqmir111/bio/blob/main/avatar.jpg'">
+        <img src="avatar.jpg" alt="Avatar" class="avatar" onerror="this.src='https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png'">
 
-        <h1>dqmjrkaaa</h1>
+        <h1>Damirka</h1>
         
-        <p class="bio">developer. love C# , python , .html , 
+        <p class="bio">Developer. Gamer. Creator.
         Пишу код и делаю вещи.</p>
 
         <div class="links">
-            <a href="https://t.me/podval_dqmira" class="link-item" target="_blank">
-                <i class="fab fa-telegram-plane"></i>
-                Telegram channel
-            </a>
-
-            <a href="https://t.me/yxo42" class="link-item" target="_blank">
+            <a href="https://t.me/твой_ник" class="link-item" target="_blank">
                 <i class="fab fa-telegram-plane"></i>
                 Telegram
             </a>
 
-            <a href="https://funpay.com/users/14752534/" class="link-item" target="_blank">
-                <i class="fab fa-funpay"></i>
-                FunPay
+            <a href="https://github.com/твой_ник" class="link-item" target="_blank">
+                <i class="fab fa-github"></i>
+                GitHub
+            </a>
+
+            <a href="#" class="link-item" target="_blank">
+                <i class="fab fa-vk"></i>
+                VKontakte
             </a>
             
-            <a href="https://www.tiktok.com/@dqmir1111" class="link-item" target="_blank">
+            <a href="#" class="link-item" target="_blank">
                 <i class="fas fa-gamepad"></i>
-                TikTok
+                Мой Steam
             </a>
         </div>
 
@@ -179,6 +219,37 @@
         </div>
 
     </div>
+    
+    <script>
+        // Код для генерации и анимации снежинок
+        const snowContainer = document.getElementById('snow-container');
+        const numberOfSnowflakes = 50; // Количество снежинок
+
+        for (let i = 0; i < numberOfSnowflakes; i++) {
+            const snowflake = document.createElement('div');
+            snowflake.classList.add('snowflake');
+            
+            // Случайное позиционирование по горизонтали
+            snowflake.style.left = Math.random() * 100 + 'vw';
+            
+            // Случайный размер
+            const size = Math.random() * 3 + 2; // от 2px до 5px
+            snowflake.style.width = size + 'px';
+            snowflake.style.height = size + 'px';
+            
+            // Случайная скорость падения
+            const duration = Math.random() * 10 + 10; // от 10s до 20s
+            snowflake.style.animationDuration = duration + 's';
+            
+            // Случайная задержка анимации (чтобы они падали не одновременно)
+            snowflake.style.animationDelay = Math.random() * 10 + 's';
+            
+            // Небольшая прозрачность для реализма
+            snowflake.style.opacity = Math.random() * 0.5 + 0.5;
+
+            snowContainer.appendChild(snowflake);
+        }
+    </script>
 
 </body>
 </html>
