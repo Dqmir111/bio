@@ -3,8 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Damirka</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>Snowfall Effect</title>
     
     <style>
         /* Сброс стилей */
@@ -15,19 +14,16 @@
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            /* Черный фон, чтобы снег был виден */
             background-color: #000;
-            color: #fff;
             min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            overflow-x: hidden;
-            position: relative; /* Добавлено для позиционирования снега */
+            width: 100vw;
+            position: relative;
+            /* Важно: скрываем полосы прокрутки, которые могут появиться из-за снежинок */
+            overflow: hidden; 
         }
 
-        /* Видео фон */
+        /* Видео фон (сохранен как атмосферная подложка, затемнен) */
         #bg-video {
             position: fixed;
             top: 0;
@@ -35,141 +31,55 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
-            z-index: -2; /* Изменено на -2, чтобы снег был над видео, но под контентом */
+            z-index: -2; 
             opacity: 0.4;
-            filter: brightness(0.5) blur(3px);
+            /* Сделаем фон темнее и чуть менее размытым */
+            filter: brightness(0.3) blur(2px); 
         }
 
-        /* Основной контейнер */
-        .container {
-            width: 100%;
-            max-width: 480px;
-            padding: 20px;
-            text-align: center;
-            z-index: 1;
-            /* Дополнительный стиль для "красоты": немного тени для контраста */
-            background-color: rgba(0, 0, 0, 0.2); 
-            border-radius: 20px;
-            padding-top: 40px;
-            padding-bottom: 40px;
-        }
-
-        /* Аватарка */
-        .avatar {
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            object-fit: cover;
-            margin-bottom: 15px;
-            border: 3px solid #00c6ff; /* Сделаем рамку красивее, добавим сияющий эффект */
-            box-shadow: 0 0 15px rgba(0, 198, 255, 0.7);
-            transition: transform 0.3s ease;
-        }
-        
-        .avatar:hover {
-            transform: scale(1.05);
-        }
-
-        /* Имя и описание */
-        h1 {
-            font-size: 24px; /* Увеличим размер */
-            font-weight: 700;
-            margin-bottom: 5px;
-            letter-spacing: 1px;
-            color: #fff;
-            text-shadow: 0 0 5px #00c6ff;
-        }
-
-        .bio {
-            font-size: 15px;
-            color: rgba(255, 255, 255, 0.8); /* Сделаем текст немного светлее */
-            margin-bottom: 30px; /* Увеличим отступ */
-            white-space: pre-line;
-        }
-
-        /* Список ссылок */
-        .links {
-            display: flex;
-            flex-direction: column;
-            gap: 15px; /* Увеличим расстояние */
-            width: 100%;
-        }
-
-        .link-item {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            background: rgba(255, 255, 255, 0.1); /* Более светлый, но прозрачный фон */
-            color: #fff;
-            text-decoration: none;
-            padding: 18px; /* Увеличим padding */
-            border-radius: 15px; /* Сделаем углы более скругленными */
-            font-size: 16px;
-            font-weight: 600;
-            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3); /* Добавим тень */
-        }
-
-        /* Иконка слева */
-        .link-item i {
+        /* Контейнер для снежинок, чтобы они занимали весь экран */
+        #snow-container {
             position: absolute;
-            left: 20px;
-            font-size: 20px;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 0; 
         }
 
-        /* Ховер эффект */
-        .link-item:hover {
-            background: #00c6ff; /* Голубой цвет при наведении */
-            color: #000;
-            transform: translateY(-3px); /* Легкий подъем */
-            border-color: #00c6ff;
-            box-shadow: 0 10px 20px rgba(0, 198, 255, 0.4);
-        }
-
-        /* Футер */
-        .footer {
-            margin-top: 50px; /* Увеличим отступ */
-            font-size: 13px;
-            color: rgba(255, 255, 255, 0.5);
-            letter-spacing: 1.5px;
-            text-transform: uppercase;
-        }
-
-        /* Анимация появления */
-        .fade-in {
-            animation: fadeIn 1s ease-out forwards;
-            opacity: 0;
-            transform: translateY(20px);
-        }
-
-        @keyframes fadeIn {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        
-        /* Стили для снегопада */
+        /* Стили для снежинки */
         .snowflake {
             position: absolute;
-            width: 5px;
-            height: 5px;
-            background: rgba(255, 255, 255, 0.8);
+            /* Немного ярче */
+            background: rgba(255, 255, 255, 0.9); 
             border-radius: 50%;
-            z-index: 0; /* Над видео, но под контентом */
-            pointer-events: none; /* Чтобы не мешал кликам */
+            pointer-events: none;
             animation: fall linear infinite;
+            /* Добавим легкое боковое покачивание для реализма */
+            animation-name: fall, sway; 
         }
 
+        /* Анимация падения (по вертикали) */
         @keyframes fall {
             0% {
                 transform: translateY(-10vh);
             }
             100% {
                 transform: translateY(100vh);
+            }
+        }
+        
+        /* Анимация бокового покачивания (по горизонтали) */
+        @keyframes sway {
+            0% {
+                transform: translateX(0);
+            }
+            50% {
+                transform: translateX(10px);
+            }
+            100% {
+                transform: translateX(0);
             }
         }
 
@@ -182,48 +92,11 @@
     </video>
     
     <div id="snow-container"></div> 
-
-    <div class="container fade-in">
-        
-        <img src="avatar.jpg" alt="Avatar" class="avatar" onerror="this.src='https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png'">
-
-        <h1>Damirka</h1>
-        
-        <p class="bio">Developer. Gamer. Creator.
-        Пишу код и делаю вещи.</p>
-
-        <div class="links">
-            <a href="https://t.me/твой_ник" class="link-item" target="_blank">
-                <i class="fab fa-telegram-plane"></i>
-                Telegram
-            </a>
-
-            <a href="https://github.com/твой_ник" class="link-item" target="_blank">
-                <i class="fab fa-github"></i>
-                GitHub
-            </a>
-
-            <a href="#" class="link-item" target="_blank">
-                <i class="fab fa-vk"></i>
-                VKontakte
-            </a>
-            
-            <a href="#" class="link-item" target="_blank">
-                <i class="fas fa-gamepad"></i>
-                Мой Steam
-            </a>
-        </div>
-
-        <div class="footer">
-            :: Powered by ThisTeam ::
-        </div>
-
-    </div>
     
     <script>
         // Код для генерации и анимации снежинок
         const snowContainer = document.getElementById('snow-container');
-        const numberOfSnowflakes = 50; // Количество снежинок
+        const numberOfSnowflakes = 80; // Увеличено количество снежинок для более густого снегопада
 
         for (let i = 0; i < numberOfSnowflakes; i++) {
             const snowflake = document.createElement('div');
@@ -233,20 +106,24 @@
             snowflake.style.left = Math.random() * 100 + 'vw';
             
             // Случайный размер
-            const size = Math.random() * 3 + 2; // от 2px до 5px
+            const size = Math.random() * 4 + 2; // от 2px до 6px
             snowflake.style.width = size + 'px';
             snowflake.style.height = size + 'px';
             
             // Случайная скорость падения
-            const duration = Math.random() * 10 + 10; // от 10s до 20s
-            snowflake.style.animationDuration = duration + 's';
+            const fallDuration = Math.random() * 10 + 10; // от 10s до 20s
+            snowflake.style.animationDuration = `${fallDuration}s, ${fallDuration / 4}s`; // Длительность падения и покачивания
             
             // Случайная задержка анимации (чтобы они падали не одновременно)
-            snowflake.style.animationDelay = Math.random() * 10 + 's';
+            snowflake.style.animationDelay = `-${Math.random() * fallDuration}s, -${Math.random() * fallDuration}s`; // Отрицательная задержка для немедленного начала с разных позиций
             
             // Небольшая прозрачность для реализма
             snowflake.style.opacity = Math.random() * 0.5 + 0.5;
-
+            
+            // Случайная амплитуда покачивания
+            const swayDuration = Math.random() * 5 + 5;
+            snowflake.style.animationDuration = `${fallDuration}s, ${swayDuration}s`;
+            
             snowContainer.appendChild(snowflake);
         }
     </script>
