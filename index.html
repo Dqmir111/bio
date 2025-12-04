@@ -3,253 +3,307 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Damirka</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>Dqmjrka | Классическое Портфолио</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     
     <style>
-        /* Сброс стилей */
-        * {
+        :root {
+            /* КЛАССИЧЕСКАЯ ТЕМА */
+            --color-primary: #FFFFFF; /* Белый фон */
+            --color-secondary: #F5F5F5; /* Светло-серый фон для секций */
+            --color-text: #000000; /* Черный текст */
+            --color-accent: #0077B5; /* Синий акцент (Telegram/Классический) */
+        }
+
+        /* Общие Стили */
+        body {
+            background-color: var(--color-primary);
+            color: var(--color-text); 
+            font-family: 'Poppins', sans-serif;
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            background-color: #000;
-            color: #fff;
             min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
             overflow-x: hidden;
-            position: relative; /* Добавлено для позиционирования снега */
+            line-height: 1.6;
         }
 
-        /* Видео фон */
-        #bg-video {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            z-index: -2; /* Изменено на -2, чтобы снег был над видео, но под контентом */
-            opacity: 0.4;
-            filter: brightness(0.5) blur(3px);
-        }
-
-        /* Основной контейнер */
         .container {
-            width: 100%;
-            max-width: 480px;
-            padding: 20px;
-            text-align: center;
-            z-index: 1;
-            /* Дополнительный стиль для "красоты": немного тени для контраста */
-            background-color: rgba(0, 0, 0, 0.2); 
-            border-radius: 20px;
-            padding-top: 40px;
-            padding-bottom: 40px;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 80px 20px;
         }
 
-        /* Аватарка */
-        .avatar {
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            object-fit: cover;
-            margin-bottom: 15px;
-            border: 3px solid #00c6ff; /* Сделаем рамку красивее, добавим сияющий эффект */
-            box-shadow: 0 0 15px rgba(0, 198, 255, 0.7);
-            transition: transform 0.3s ease;
+        .section-title {
+            text-align: center;
+            font-size: 2.5em;
+            margin-bottom: 50px;
+            color: var(--color-accent);
+            border-bottom: 2px solid var(--color-accent);
+            padding-bottom: 10px;
+            display: inline-block;
+        }
+
+        /* HERO SECTION */
+        #hero {
+            background-color: var(--color-secondary);
+            text-align: center;
+            padding: 100px 20px 80px;
         }
         
-        .avatar:hover {
-            transform: scale(1.05);
-        }
-
-        /* Имя и описание */
-        h1 {
-            font-size: 24px; /* Увеличим размер */
+        #hero h1 {
+            font-size: 3.5em;
             font-weight: 700;
+            color: var(--color-text);
             margin-bottom: 5px;
-            letter-spacing: 1px;
-            color: #fff;
-            text-shadow: 0 0 5px #00c6ff;
         }
 
-        .bio {
-            font-size: 15px;
-            color: rgba(255, 255, 255, 0.8); /* Сделаем текст немного светлее */
-            margin-bottom: 30px; /* Увеличим отступ */
-            white-space: pre-line;
+        #hero h2 {
+            font-size: 1.5em;
+            font-weight: 300;
+            color: #666;
+            margin-top: 0;
         }
 
-        /* Список ссылок */
-        .links {
-            display: flex;
-            flex-direction: column;
-            gap: 15px; /* Увеличим расстояние */
+        .accent-text {
+            color: var(--color-accent); 
+        }
+
+        /* HEADER & NAVIGATION */
+        header {
+            position: sticky;
+            top: 0;
             width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 40px;
+            z-index: 1000;
+            background-color: var(--color-primary);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        
+        .logo a {
+            font-size: 1.5em;
+            font-weight: 700;
+            text-decoration: none;
+            color: var(--color-text);
         }
 
-        .link-item {
+        nav a {
+            text-decoration: none;
+            margin-left: 25px;
+            font-weight: 600;
+            color: var(--color-text);
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: var(--color-accent);
+        }
+
+        /* Кнопка */
+        .simple-button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: var(--color-accent);
+            color: var(--color-primary);
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: 600;
+            transition: background-color 0.3s;
+        }
+
+        .simple-button:hover {
+            background-color: #005A90;
+        }
+
+        /* Карточки (теперь просто белые блоки с тенью) */
+        .card {
+            background-color: var(--color-primary);
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+            margin-bottom: 30px;
+            transition: box-shadow 0.3s;
+        }
+        
+        .card:hover {
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Grid Layouts */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+        
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+        
+        /* Стили для Секции Контактов */
+        #contact-section {
+            background-color: var(--color-secondary);
+            text-align: center;
+            padding: 80px 20px;
+        }
+
+        .social-links {
+            margin-top: 30px;
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+        }
+
+        .social-link {
+            text-decoration: none;
+            color: var(--color-accent);
+            font-size: 1.1em;
             display: flex;
             align-items: center;
-            justify-content: center;
-            position: relative;
-            background: rgba(255, 255, 255, 0.1); /* Более светлый, но прозрачный фон */
-            color: #fff;
-            text-decoration: none;
-            padding: 18px; /* Увеличим padding */
-            border-radius: 15px; /* Сделаем углы более скругленными */
-            font-size: 16px;
-            font-weight: 600;
-            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3); /* Добавим тень */
+            transition: color 0.3s, transform 0.3s;
         }
 
-        /* Иконка слева */
-        .link-item i {
-            position: absolute;
-            left: 20px;
-            font-size: 20px;
+        .social-link i {
+            font-size: 2em;
+            margin-right: 10px;
         }
 
-        /* Ховер эффект */
-        .link-item:hover {
-            background: #00c6ff; /* Голубой цвет при наведении */
-            color: #000;
-            transform: translateY(-3px); /* Легкий подъем */
-            border-color: #00c6ff;
-            box-shadow: 0 10px 20px rgba(0, 198, 255, 0.4);
+        .social-link:hover {
+            color: #005A90; /* Темнее при наведении */
+            transform: translateY(-2px);
         }
 
-        /* Футер */
-        .footer {
-            margin-top: 50px; /* Увеличим отступ */
-            font-size: 13px;
-            color: rgba(255, 255, 255, 0.5);
-            letter-spacing: 1.5px;
-            text-transform: uppercase;
+        /* FOOTER */
+        footer {
+            text-align: center;
+            padding: 30px 20px;
+            border-top: 1px solid var(--color-secondary);
+            font-size: 0.9em;
+            color: #666;
         }
 
-        /* Анимация появления */
-        .fade-in {
-            animation: fadeIn 1s ease-out forwards;
-            opacity: 0;
-            transform: translateY(20px);
-        }
-
-        @keyframes fadeIn {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        .powered-by {
+            margin-top: 5px;
+            color: #666; /* Оставляем серым */
         }
         
-        /* Стили для снегопада */
-        .snowflake {
-            position: absolute;
-            width: 5px;
-            height: 5px;
-            background: rgba(255, 255, 255, 0.8);
-            border-radius: 50%;
-            z-index: 0; /* Над видео, но под контентом */
-            pointer-events: none; /* Чтобы не мешал кликам */
-            animation: fall linear infinite;
-        }
-
-        @keyframes fall {
-            0% {
-                transform: translateY(-10vh);
+        @media (max-width: 768px) {
+            .grid-2 {
+                grid-template-columns: 1fr;
             }
-            100% {
-                transform: translateY(100vh);
+            header {
+                flex-direction: column;
+                padding: 15px 20px;
+            }
+            .logo {
+                margin-bottom: 10px;
+            }
+            nav a {
+                margin: 0 10px;
+            }
+            .social-links {
+                flex-direction: column;
+                gap: 15px;
             }
         }
-
     </style>
 </head>
+
 <body>
 
-    <video autoplay muted loop playsinline id="bg-video">
-        <source src="120fps.mp4" type="video/mp4">
-    </video>
-    
-    <div id="snow-container"></div> 
+    <header>
+        <div class="logo">
+            <a href="#hero">Dqmjrka</a>
+        </div>
+        <nav>
+            <a href="#about">Обо мне</a>
+            <a href="#skills">Навыки</a>
+            <a href="#contact-section" class="simple-button">Контакты</a>
+        </nav>
+    </header>
 
-    <div class="container fade-in">
+    <main>
         
-        <img src="avatar.jpg" alt="Avatar" class="avatar" onerror="this.src='https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png'">
+        <section id="hero">
+            <h1><span class="accent-text">Hello, World!</span> I am Dqmjrka.</h1>
+            <h2>Креативный Разработчик и Экстремал.</h2>
+        </section>
 
-        <h1>Damirka</h1>
-        
-        <p class="bio">Developer. Gamer. Creator.
-        Пишу код и делаю вещи.</p>
-
-        <div class="links">
-            <a href="https://t.me/твой_ник" class="link-item" target="_blank">
-                <i class="fab fa-telegram-plane"></i>
-                Telegram
-            </a>
-
-            <a href="https://github.com/твой_ник" class="link-item" target="_blank">
-                <i class="fab fa-github"></i>
-                GitHub
-            </a>
-
-            <a href="#" class="link-item" target="_blank">
-                <i class="fab fa-vk"></i>
-                VKontakte
-            </a>
+        <section id="about" class="container">
+            <h2 class="section-title">Обо мне и Навыки</h2>
             
-            <a href="#" class="link-item" target="_blank">
-                <i class="fas fa-gamepad"></i>
-                Мой Steam
-            </a>
-        </div>
+            <div class="grid-2">
+                
+                <div class="about-text card">
+                    <h3>Обо мне</h3>
+                    <p>Я — **Dqmjrka**, разработчик, влюбленный в создание чего-то **ощутимого** из чистого кода. Мой подход сочетает **строгую логику** программирования с **чистой эстетикой** дизайна. Я создаю интерактивный опыт, который не только функционален, но и **безумно красив**.</p>
+                    <p>Основной фокус: **современная веб-разработка** и высокопроизводительный код. Также увлечен **Electric Scooter Stunt: Extreme Challenge!**</p>
+                </div>
 
-        <div class="footer">
-            :: Powered by ThisTeam ::
-        </div>
+                <div class="stunt-card card">
+                    <h3>Станты (Текст)</h3>
+                    <p>Моя страсть к коду сочетается с любовью к экстремальным трюкам на электросамокате. Это баланс между **точностью кода** и **физическим риском**.</p>
+                    <p class="accent-text">Готов к любым техническим и физическим вызовам.</p>
+                </div>
 
-    </div>
-    
+            </div>
+            
+        </section>
+
+        <section id="skills" class="container" style="padding-top: 0;">
+            <h2 class="section-title" style="margin-top: 0;">Технологии, Которые Я Использую</h2>
+            <div class="skills-grid">
+                <div class="skill-card card"><h3>Frontend</h3><ul><li><i class="fas fa-code"></i> HTML5, CSS3 (SASS/Styled-Components)</li><li><i class="fab fa-react"></i> JavaScript (React/Vue/Svelte)</li><li><i class="fas fa-desktop"></i> Адаптивный дизайн</li></ul></div>
+                <div class="skill-card card"><h3>Backend</h3><ul><li><i class="fab fa-python"></i> Python (Django/Flask)</li><li><i class="fab fa-node-js"></i> Node.js (Express)</li><li><i class="fas fa-database"></i> SQL/NoSQL</li></ul></div>
+                <div class="skill-card card"><h3>Tools & Ops</h3><ul><li><i class="fab fa-git-alt"></i> Git / GitHub / GitLab</li><li><i class="fab fa-docker"></i> Docker / Kubernetes</li><li><i class="fas fa-tools"></i> CI/CD, TDD</li></ul></div>
+            </div>
+        </section>
+        
+        <section id="contact-section">
+            <h2 class="section-title" style="border-bottom: none;">Найти меня в сети</h2>
+            <div class="social-links">
+                
+                <a href="https://t.me/podval_dqmira" target="_blank" class="social-link">
+                    <i class="fab fa-telegram"></i> 
+                    Telegram (podval_dqmira)
+                </a>
+
+                <a href="https://tiktok.com/@dqmir1111" target="_blank" class="social-link">
+                    <i class="fab fa-tiktok"></i> 
+                    TikTok (@dqmir1111)
+                </a>
+
+                <a href="https://t.me/yxo42" target="_blank" class="social-link">
+                    <i class="fab fa-telegram"></i> 
+                    Telegram (yxo42)
+                </a>
+                
+            </div>
+        </section>
+
+    </main>
+
+    <footer>
+        <p>&copy; Dqmjrka 2025. С любовью и кодом.</p>
+        <p class="powered-by">:: Powered by ThisTeam ::</p>
+    </footer>
+
     <script>
-        // Код для генерации и анимации снежинок
-        const snowContainer = document.getElementById('snow-container');
-        const numberOfSnowflakes = 50; // Количество снежинок
-
-        for (let i = 0; i < numberOfSnowflakes; i++) {
-            const snowflake = document.createElement('div');
-            snowflake.classList.add('snowflake');
-            
-            // Случайное позиционирование по горизонтали
-            snowflake.style.left = Math.random() * 100 + 'vw';
-            
-            // Случайный размер
-            const size = Math.random() * 3 + 2; // от 2px до 5px
-            snowflake.style.width = size + 'px';
-            snowflake.style.height = size + 'px';
-            
-            // Случайная скорость падения
-            const duration = Math.random() * 10 + 10; // от 10s до 20s
-            snowflake.style.animationDuration = duration + 's';
-            
-            // Случайная задержка анимации (чтобы они падали не одновременно)
-            snowflake.style.animationDelay = Math.random() * 10 + 's';
-            
-            // Небольшая прозрачность для реализма
-            snowflake.style.opacity = Math.random() * 0.5 + 0.5;
-
-            snowContainer.appendChild(snowflake);
-        }
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
     </script>
-
 </body>
 </html>
